@@ -16,10 +16,7 @@ CPPFLAGS	=	-Wall -Wextra -Werror
 CPPFLAGS	+=	-std=c++98
 RM			=	rm -rf
 
-SRCS		=	main.cpp		\
-				Zombie.cpp		\
-				newZombie.cpp	\
-				randomChump.cpp	\
+SRCS		=	main.cpp	\
 
 all: $(NAME)
 
