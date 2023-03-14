@@ -22,9 +22,6 @@ CPPFLAGS	+=	-std=c++98
 RM			=	rm -rf
 
 SRCS		=	main.cpp	\
-				Weapon.cpp	\
-				HumanA.cpp	\
-				HumanB.cpp	\
 
 OBJS		=	$(patsubst %.cpp, %.o, $(SRCS))
 
