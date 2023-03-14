@@ -3,12 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mliew <mliew@student.42kl.edu.my>          +#+  +:+       +#+         #
+#    By: mliew < mliew@student.42kl.edu.my>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/03/08 17:34:00 by mliew             #+#    #+#              #
-#    Updated: 2023/03/08 17:34:00 by mliew            ###   ########.fr        #
+#    Created: 2023/03/14 12:40:29 by mliew             #+#    #+#              #
+#    Updated: 2023/03/14 12:40:29 by mliew            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_BLUE=\033[0;34m
+COLOUR_END=\033[0m
 
 NAME		=	a.out
 CC			=	g++
@@ -17,25 +22,29 @@ CPPFLAGS	+=	-std=c++98
 RM			=	rm -rf
 
 SRCS		=	main.cpp	\
-				Weapon.hpp	\
 				Weapon.cpp	\
-				HumanA.hpp	\
 				HumanA.cpp	\
-				HumanB.hpp	\
 				HumanB.cpp	\
 
+OBJS		=	$(patsubst %.cpp, %.o, $(SRCS))
 
 all: $(NAME)
 
-$(NAME): $(SRCS)
-	$(CC) $(CPPFLAGS) $(SRCS) -o $(NAME)
+$(NAME): $(OBJS)
+	@echo "$(COLOUR_GREEN)"
+	$(CC) $(CPPFLAGS) $(OBJS) -o $(NAME)
+	@echo "$(COLOUR_GREEN)$(NAME): Executable sucessfully compiled.$(COLOUR_END)"
+
+%.o : %.cpp
+	@echo "$(COLOUR_BLUE)"
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	@echo Removing object files...
-	@$(RM) $(OBJS_DIR)
+	@echo "$(COLOUR_RED)clean: Removing object files...$(COLOUR_END)"
+	@$(RM) $(OBJS)
 
 fclean: clean
-	@echo Removing program file...
+	@echo "$(COLOUR_RED)fclean: Removing program file...$(COLOUR_END)"
 	@$(RM) $(NAME)
 
 re:	fclean all
