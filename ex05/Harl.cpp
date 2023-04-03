@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mliew < mliew@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: mliew <mliew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:42:19 by mliew             #+#    #+#             */
-/*   Updated: 2023/03/14 21:25:13 by mliew            ###   ########.fr       */
+/*   Updated: 2023/04/03 13:19:35 by mliew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void Harl::info(void)
 	std::cout <<	"[ INFO ]" << std::endl;
 	std::cout <<	"I cannot believe adding extra bacon costs more money. You didn't put "
 					"enough bacon in my burger!" << std::endl;
-	std::cout <<	"If you did, I wouldn’t be asking for more!" << std::endl;
+	std::cout <<	"If you did, I wouldn't be asking for more!" << std::endl;
 }
 
 void Harl::warning(void)
@@ -51,12 +51,22 @@ void Harl::error(void)
 	std::cout <<	"This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
+const Harl::LogStruct Harl::logFunc[] =
+{
+	{"debug", &Harl::debug},
+	{"info", &Harl::info},
+	{"warning", &Harl::warning},
+	{"error", &Harl::error}
+};
+
 void Harl::complain(std::string level)
 {
-	std::string levels[4] = {"debug", "info", "warning", "error"};
-	(void)level;
-	debug();
-	info();
-	warning();
-	error();
+	for (int i = 0; i < 4; i++)
+	{
+		if (level == logFunc[i].level)
+		{
+			(this->*logFunc[i].function)();
+			return;
+		}
+	}
 }

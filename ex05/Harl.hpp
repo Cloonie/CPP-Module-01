@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mliew < mliew@student.42kl.edu.my>         +#+  +:+       +#+        */
+/*   By: mliew <mliew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:42:27 by mliew             #+#    #+#             */
-/*   Updated: 2023/03/14 21:21:40 by mliew            ###   ########.fr       */
+/*   Updated: 2023/04/03 13:19:57 by mliew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,17 @@ class Harl
 		void info(void);
 		void warning(void);
 		void error(void);
+		struct LogStruct
+		{
+			const char* level;
+			void (Harl::*function)();
+		};
 
 	public:
 		Harl();
 		~Harl();
-		typedef void (Harl::*PtrToMember)(std::string&);
 		void complain(std::string level);
+		static const LogStruct logFunc[];
 };
 
 #endif
