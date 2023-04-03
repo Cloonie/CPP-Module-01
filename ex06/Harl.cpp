@@ -6,7 +6,7 @@
 /*   By: mliew <mliew@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 19:42:19 by mliew             #+#    #+#             */
-/*   Updated: 2023/04/03 15:46:07 by mliew            ###   ########.fr       */
+/*   Updated: 2023/04/03 15:44:52 by mliew            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,24 @@ void Harl::error(void)
 	std::cout <<	"This is unacceptable! I want to speak to the manager now.\n" << std::endl;
 }
 
-const Harl::LogStruct Harl::logFunc[] =
+void Harl::complain(int level)
 {
-	{"debug", &Harl::debug},
-	{"info", &Harl::info},
-	{"warning", &Harl::warning},
-	{"error", &Harl::error}
-};
-
-void Harl::complain(std::string level)
-{
-	for (int i = 0; i < 4; i++)
+	switch (level)
 	{
-		if (level == logFunc[i].level)
-		{
-			(this->*logFunc[i].function)();
-			return;
-		}
+		case 1:
+			debug();
+			// fall through
+		case 2:
+			info();
+			// fall through
+		case 3:
+			warning();
+			// fall through
+		case 4:
+			error();
+			break;
+		default:
+			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+			break;
 	}
 }
